@@ -5,10 +5,7 @@ class Solution {
             if(ch == '(' || ch == '{' || ch == '['){
                 stack.push(ch);
             }
-            else if(stack.empty()){
-                return false;
-            }
-            else if((stack.peek() == '(' && ch == ')') || (stack.peek() == '{' && ch == '}') || (stack.peek() == '[' && ch == ']')){
+            else if(!stack.empty() && ((ch == '}' && stack.peek() == '{') || (ch == ']' && stack.peek() == '[') || (ch == ')' && stack.peek() == '('))){
                 stack.pop();
             }
             else{
