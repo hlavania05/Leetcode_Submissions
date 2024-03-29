@@ -6,19 +6,32 @@ class Solution {
         
     }
     public static int[] merge_array(int[] arr1, int[] arr2){
-        int[] merged = new int[arr1.length + arr2.length];
-        int i = 0;
-        while(i<arr1.length){
-            merged[i] = arr1[i];
-            i++;
-        }
-        int j = 0;
-        while(i < merged.length){
-            merged[i] = arr2[j];
-            j++;
-            i++;
-        }
-        return merged;
+        int n = arr1.length;
+		int m = arr2.length;
+		int[] ans = new int[n + m];
+		int i = 0, j = 0, k = 0;
+		while (i < n && j < m) {
+			if (arr1[i] < arr2[j]) {
+				ans[k] = arr1[i];
+				i++;
+				k++;
+			} else {
+				ans[k] = arr2[j];
+				j++;
+				k++;
+			}
+		}
+		while (i < n) {
+			ans[k] = arr1[i];
+			i++;
+			k++;
+		}
+		while (j < m) {
+			ans[k] = arr2[j];
+			j++;
+			k++;
+		}
+		return ans;
     }
     public static float median(int[] arr){
         int n = arr.length;
