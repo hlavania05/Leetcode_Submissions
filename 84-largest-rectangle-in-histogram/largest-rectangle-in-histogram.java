@@ -1,49 +1,34 @@
 class Solution {
-    public int largestRectangleArea(int[] heights) {
-        return func(heights, heights.length);
-    }
-    public int func(int[] arr, int n){
-        int[] left = left(arr, n);
-        int[] right = right(arr, n);
-        int max_ar = Integer.MIN_VALUE;
-        for(int i=0; i<n; i++){
-            int ar = (right[i] - left[i] - 1) * arr[i];
-            max_ar = Math.max(max_ar, ar);
+    public int largestRectangleArea(int[] arr) {
+        Stack<Integer> st = new Stack<>();
+        int ans = 0;
+        for(int i=0 ;i <arr.length; i++){
+            while(!st.empty() && arr[i] < arr[st.peek()]){
+                int h = arr[st.pop()];
+                int r = i;
+                if(!st.isEmpty()){
+                    int l = st.peek();
+                    ans = Math.max(ans, h * (r - l -1));
+                }
+                else{
+                    ans = Math.max(ans, h*r);
+                }
+            }
+            st.push(i);
         }
-        return max_ar;
-    }
-    public int[] left(int[] arr, int n){
-        int[] left = new int[n];
-        Stack<Pair<Integer, Integer>> stack = new Stack<>();
-        for(int i=0; i<n; i++){
-            while(!stack.empty() && stack.peek().getKey() >= arr[i]){
-                stack.pop();
-            }
-            if(stack.empty()){
-                left[i] = -1;
-            }
-            else{
-                left[i] = stack.peek().getValue();
-            }
-            stack.push(new Pair<>(arr[i], i));
-        }
-        return left;
-    }
-    public int[] right(int[] arr, int n){
-        int[] right = new int[n];
-        Stack<Pair<Integer, Integer>> stack = new Stack<>();
-        for(int i=n-1; i>=0; i--){
-            while(!stack.empty() && stack.peek().getKey() >= arr[i]){
-                stack.pop();
-            }
-            if(stack.empty()){
-                right[i] = arr.length;
-            }
-            else{
-                right[i] = stack.peek().getValue();
-            }
-            stack.push(new Pair<>(arr[i], i));
-        }
-        return right;
+        int r = arr.length;
+		while (!st.isEmpty()) {
+			int h = arr[st.pop()];
+
+			if (st.isEmpty()) {
+				int a = h * r;
+				ans = Math.max(ans, a);
+			} else {
+				int l = st.peek();
+				int a = h * (r - l - 1);
+				ans = Math.max(ans, a);
+			}
+		}
+		return ans;
     }
 }
