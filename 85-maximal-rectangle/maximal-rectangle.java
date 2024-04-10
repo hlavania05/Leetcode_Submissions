@@ -4,12 +4,12 @@ class Solution {
         int[] histogram = new int[matrix[0].length];
         int max_area = 0;
         for(int i=matrix.length-1; i>=0; i--){
-            for(int j=0; j<histogram.length; j++){
-                if(matrix[i][j] != 0){
-                    histogram[j] += matrix[i][j];
-                }
-                else{
-                    histogram[j] = 0;
+            if(i == matrix.length-1){
+                histogram = matrix[i];
+            }
+            else{
+                for(int j=0; j<matrix[0].length; j++){
+                    histogram[j] = matrix[i][j] == 1 ? histogram[j] + 1 : 0;
                 }
             }
             max_area = Math.max(max_area, func(histogram));
