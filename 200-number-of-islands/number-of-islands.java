@@ -24,30 +24,29 @@ class Solution {
         return count;
     }
     public void bfs(int row, int col, char[][] arr, int[][] visited){
-    visited[row][col] = 1;
-    Queue<Pair> q = new LinkedList<>();
-    q.add(new Pair(row, col));
+        visited[row][col] = 1;
+        Queue<Pair> q = new LinkedList<Pair>();
+        q.add(new Pair(row, col));
 
-    int n = arr.length;
-    int m = arr[0].length;
+        int n = arr.length;
+        int m = arr[0].length;
 
-    int[] dr = {1, -1, 0, 0};
-    int[] dc = {0, 0, 1, -1};
-
-    while(!q.isEmpty()){
-        Pair current = q.poll();
-        int r = current.first;
-        int c = current.second;
-
-        for (int i = 0; i < 4; i++) {
-            int newRow = r + dr[i];
-            int newCol = c + dc[i];
-
-            if (newRow >= 0 && newRow < n && newCol >= 0 && newCol < m && visited[newRow][newCol] == 0 && arr[newRow][newCol] == '1') {
-                visited[newRow][newCol] = 1;
-                q.add(new Pair(newRow, newCol));
+        while(!q.isEmpty()){
+            Pair current = q.poll();
+            int r = current.first;
+            int c = current.second;
+            
+            int[] dr = {1, -1, 0, 0};
+            int[] dc = {0, 0, 1, -1};
+            for (int i = 0; i < 4; i++) {
+                int newRow = r + dr[i];
+                int newCol = c + dc[i];
+                if (newRow >= 0 && newRow < n && newCol >= 0 && newCol < m && visited[newRow][newCol] == 0 && arr[newRow][newCol] == '1') {
+                    visited[newRow][newCol] = 1;
+                    q.add(new Pair(newRow, newCol));
+                }
             }
         }
+
     }
-}
 }
