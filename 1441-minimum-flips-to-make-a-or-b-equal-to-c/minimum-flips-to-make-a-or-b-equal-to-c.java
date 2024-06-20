@@ -9,12 +9,14 @@ class Solution {
             int r3 = c & 1;
 
             // right bit of c is 1
-            if(r3 == 1 && r2 == 0 && r1 == 0){
-                flips += 1;
+            if(r3 == 1){
+                if(r2 == 0 && r1 == 0){
+                    flips += 1;
+                }
             }
 
             // right bit of c is 0
-            else if(r3 == 0){
+            else {
                 // if(r2 == 1 && r1 == 1){
                 //     flips += 2;
                 // }
