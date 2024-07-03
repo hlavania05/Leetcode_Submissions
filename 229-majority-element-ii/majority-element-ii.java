@@ -16,9 +16,9 @@ class Solution {
         // checking the Majority element
         int fq = nums.length/3;
         List<Integer> ans = new ArrayList<>();
-        for(Map.Entry<Integer, Integer> e : map.entrySet()){
-            if(e.getValue() > fq){
-                ans.add(e.getKey());
+        for(int key : map.keySet()){
+            if(map.get(key) > fq){
+                ans.add(key);
             }
         }
         return ans;
