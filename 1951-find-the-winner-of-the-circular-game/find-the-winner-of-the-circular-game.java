@@ -4,12 +4,14 @@ class Solution {
         for(int i=1; i<=n; i++){
             lst.add(i);
         }
-        int i = 0;
-        while(lst.size() > 1){
-            int idx = (i + k - 1) % (lst.size());
-            lst.remove(idx);
-            i = idx;
+        return func(lst, k, 0);
+    }
+    public int func(List<Integer> lst, int k, int i){
+        if(lst.size() == 1){
+            return lst.get(0);
         }
-        return lst.get(0);
+        int idx = (i+k-1) % (lst.size());
+        lst.remove(idx);
+        return func(lst, k, idx);
     }
 }
