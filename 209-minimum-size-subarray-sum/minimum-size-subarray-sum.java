@@ -1,25 +1,19 @@
 class Solution {
     public int minSubArrayLen(int target, int[] nums) {
-       return min_array(target, nums);
-    }
-    public int min_array(int target, int[] arr) {
-        int n = arr.length;
-        int i = 0;
-        int j = 0;
+        int l = 0;
+        int r = 0;
         int sum = 0;
-        int min_len = 10000000;
-        while(i<n){
-            while(j<n && sum<target){
-                sum+=arr[j];
-                j++;
+        int n = nums.length;
+        int minLen = Integer.MAX_VALUE;
+        while(r < n){
+            sum += nums[r];
+            while(sum >= target){
+                minLen = Math.min(minLen, r-l+1);
+                sum = sum - nums[l];
+                l++;
             }
-            if(sum>=target){
-                min_len = Math.min(min_len, j-i);
-            }
-            sum -=arr[i];
-            i++;
+            r++;
         }
-        return min_len==10000000?0:min_len;
+        return (minLen == Integer.MAX_VALUE ? 0 : minLen);
     }
-    
 }
