@@ -8,7 +8,7 @@ class Solution {
         while(r < nums.length){
             sum += nums[r];
             if(nums[r] == 0){ zeroes++; }
-            while(zeroes > 1){
+            if(zeroes > 1){
                 sum = sum - nums[l];
                 if(nums[l] == 0){
                     zeroes--;
