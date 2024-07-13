@@ -1,5 +1,10 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> ans = new ArrayList<>();
+        if(s.length() < p.length()){
+            return ans;
+        }
+
         // mapping the frequency of character in p string
         HashMap<Character, Integer> map1 = new HashMap<>();
         for(char ch : p.toCharArray()){
@@ -10,11 +15,6 @@ class Solution {
         HashMap<Character, Integer> map2 = new HashMap<>();
         int l = 0;
         int r = 0;
-        List<Integer> ans = new ArrayList<>();
-
-        if(s.length() < p.length()){
-            return ans;
-        }
 
         // Initialize first window
         while(r< p.length()){
