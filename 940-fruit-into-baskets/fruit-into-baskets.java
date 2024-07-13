@@ -7,7 +7,8 @@ class Solution {
         for(int r=0; r < fruits.length; r++){
             int item = fruits[r];
             map.put(item, map.getOrDefault(item, 0)+1);
-            while (map.size() > 2) {
+
+            if(map.size() > 2) {
                 int leftItem = fruits[l];
                 map.put(leftItem, map.get(leftItem) - 1);
                 if (map.get(leftItem) == 0) {
@@ -15,6 +16,7 @@ class Solution {
                 }
                 l++;
             }
+
             maxLen = Math.max(maxLen, r-l+1);
         }
 
