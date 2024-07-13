@@ -1,22 +1,18 @@
 class Solution {
     public int partitionString(String s) {
         int l = 0;
-        int r = 0;
-        int cnt = 1;
-        HashMap<Character, Integer> map = new HashMap<>();
-        while(r < s.length()){
+        int cnt = 0;
+        HashSet<Character> set = new HashSet<>();
+        for(int r = 0; r < s.length(); r++){
             char ch = s.charAt(r);
-            if(map.containsKey(ch)){
-                int lastIdx = map.get(ch);
-                if(lastIdx >= l){
-                    l = r;
-                    cnt++;
-                    map.clear();
-                }
+            if(set.contains(ch)){
+                cnt++;
+                set.clear();
             }
-            map.put(ch, r);
-            r++;
-            
+            set.add(ch);
+        }
+        if(!set.isEmpty()){
+            cnt++;
         }
         return cnt;
     }
