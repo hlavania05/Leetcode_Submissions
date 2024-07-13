@@ -29,10 +29,9 @@ class Solution {
             }
             // Remove the leftmost character of the current window
             char leftChar = s.charAt(l);
-            if (map2.get(leftChar) == 1) {
+            map2.put(leftChar, map2.get(leftChar) - 1);
+            if(map2.get(leftChar) == 0){
                 map2.remove(leftChar);
-            } else {
-                map2.put(leftChar, map2.get(leftChar) - 1);
             }
             l++;
 
