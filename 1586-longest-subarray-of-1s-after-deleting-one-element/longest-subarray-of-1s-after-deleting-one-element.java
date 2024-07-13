@@ -15,12 +15,7 @@ class Solution {
                 }
                 l++;
             }
-            if(zeroes == 1){
-                maxLen = Math.max(maxLen, r-l);
-            }
-            else if(zeroes == 0){
-                maxLen = Math.max(maxLen, r-l);
-            }
+            maxLen = Math.max(maxLen, r-l);
             r++;
         }
         return maxLen;
