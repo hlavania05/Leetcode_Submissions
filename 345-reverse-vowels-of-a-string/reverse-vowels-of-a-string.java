@@ -1,8 +1,5 @@
 class Solution {
     public String reverseVowels(String s) {
-        return rev_vowel(s);
-    }
-    public static String rev_vowel(String s){
         char[] arr = s.toCharArray();
         int i = 0;
         int j = arr.length-1;
@@ -23,9 +20,8 @@ class Solution {
             }
         }
         return new String(arr);
-
     }
-    public static boolean is_vowel(char ch){
-        return "aeiouAEIOU".indexOf(ch) != -1;
+    public static boolean is_vowel(char c){
+        return "aeiouAEIOU".indexOf(c) != -1;
     }
 }
