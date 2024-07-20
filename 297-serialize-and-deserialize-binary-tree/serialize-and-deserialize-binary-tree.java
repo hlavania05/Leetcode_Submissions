@@ -1,36 +1,42 @@
+import java.util.*;
+
 public class Codec {
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        StringBuilder sb = new StringBuilder();
-        serializeHelper(root, sb);
-        return sb.toString();
+        String[] s = new String[1];
+        s[0] = "";
+        func(root, s);
+        return s[0];
     }
-    
-    private void serializeHelper(TreeNode root, StringBuilder sb) {
+
+    private void func(TreeNode root, String[] ans) {
         if (root == null) {
-            sb.append("null,");
+            ans[0] += "null,";
             return;
         }
-        sb.append(root.val).append(",");
-        serializeHelper(root.left, sb);
-        serializeHelper(root.right, sb);
+        ans[0] += root.val + ",";
+        func(root.left, ans);
+        func(root.right, ans);
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        String[] dataArray = data.split(",");
-        Queue<String> dataQueue = new LinkedList<>(Arrays.asList(dataArray));
-        return deserializeHelper(dataQueue);
+        if (data == null || data.equals("null,")) {
+            return null;
+        }
+        Queue<String> queue = new LinkedList<>(Arrays.asList(data.split(",")));
+        return buildTree(queue);
     }
-    
-    private TreeNode deserializeHelper(Queue<String> dataQueue) {
-        String val = dataQueue.poll();
+
+    private TreeNode buildTree(Queue<String> queue) {
+        String val = queue.poll();
         if (val.equals("null")) {
             return null;
         }
-        TreeNode root = new TreeNode(Integer.parseInt(val));
-        root.left = deserializeHelper(dataQueue);
-        root.right = deserializeHelper(dataQueue);
-        return root;
+        TreeNode node = new TreeNode(Integer.parseInt(val));
+        node.left = buildTree(queue);
+        node.right = buildTree(queue);
+        return node;
     }
+
 }
