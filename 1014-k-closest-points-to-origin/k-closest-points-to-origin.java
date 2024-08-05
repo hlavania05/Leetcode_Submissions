@@ -1,50 +1,40 @@
-import java.util.PriorityQueue;
-
-class Coordinates implements Comparable<Coordinates> {
+class coordinates implements Comparable<coordinates>{
     int x;
     int y;
-    int distSquared;
-
-    public Coordinates(int x, int y, int distSquared) {
+    int dist;
+    public coordinates(int x, int y, int dist){
         this.x = x;
         this.y = y;
-        this.distSquared = distSquared;
+        this.dist = dist;
     }
-
-    @Override
-    public int compareTo(Coordinates other) {
-        return Integer.compare(other.distSquared, this.distSquared); // Max-heap behavior
+    public int compareTo(coordinates other){
+        return Integer.compare(other.dist, this.dist);
     }
 }
-
 class Solution {
     public int[][] kClosest(int[][] points, int k) {
-        PriorityQueue<Coordinates> maxHeap = new PriorityQueue<>();
-        
-        for (int[] point : points) {
+        PriorityQueue<coordinates> maxHeap = new PriorityQueue<coordinates>();
+        for(int[] point : points){
             int x = point[0];
             int y = point[1];
-            int distSquared = distanceSquared(x, y); // Use squared distance to avoid floating-point inaccuracies
-            maxHeap.add(new Coordinates(x, y, distSquared));
-            if (maxHeap.size() > k) {
+            int dis = distance(x, y);
+            maxHeap.add(new coordinates(x, y, dis));
+            if(maxHeap.size() > k){
                 maxHeap.poll();
             }
         }
-
         int[][] ans = new int[k][2];
-        for (int i = k - 1; i >= 0; i--) {
-            Coordinates coord = maxHeap.poll();
+        for(int i=k-1; i>=0; i--){
+            coordinates coord = maxHeap.poll();
             if (coord != null) {
                 ans[i][0] = coord.x;
                 ans[i][1] = coord.y;
             }
         }
-        
         return ans;
-    }
 
-    // Method to calculate squared distance
-    private static int distanceSquared(int x, int y) {
-        return x * x + y * y;
+    }
+    public static int distance(int x, int y){
+        return (x*x + y*y);
     }
 }
