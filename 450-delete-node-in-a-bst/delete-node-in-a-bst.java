@@ -33,18 +33,18 @@ class Solution {
                 return root.left;
             }
             else{
-                int min = min(root.right);
-                root.right = deleteNode(root.right, min);
-                root.val = min;
+                int max = max(root.left);
+                root.left = deleteNode(root.left, max);
+                root.val = max;
             }
         }
         return root;
     }
-    public int min(TreeNode root){
+    public int max(TreeNode root){
         if(root == null){
-            return Integer.MAX_VALUE;
+            return Integer.MIN_VALUE;
         }
-        int left = min(root.left);
-        return Math.min(left, root.val);
+        int right = max(root.right);
+        return Math.max(right, root.val);
     }
 }
