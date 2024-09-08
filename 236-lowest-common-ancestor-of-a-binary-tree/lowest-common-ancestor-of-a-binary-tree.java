@@ -12,17 +12,20 @@ class Solution {
         return func(root, p, q);
     }
     public TreeNode func(TreeNode root, TreeNode p, TreeNode q){
-        if(root == null || root == p || root == q){
+        if(root == null){
+            return null;
+        }
+        if(root == p || root == q){
             return root;
         }
         TreeNode left = func(root.left, p, q);
         TreeNode right = func(root.right, p, q);
+        if(left != null && right != null){
+            return root;
+        }
         if(left == null){
             return right;
         }
-        else if(right == null){
-            return left;
-        }
-        return root;
+        return left;
     }
 }
