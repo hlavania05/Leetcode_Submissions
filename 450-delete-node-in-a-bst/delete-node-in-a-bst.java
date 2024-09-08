@@ -25,30 +25,26 @@ class Solution {
             root.right = deleteNode(root.right, key);
         }
         else{
-            // case 1
-            if(root.left == null && root.right == null){
-                return null;
-            }
-            
-            // case 2 
+            // Case 1 - 0 chile or 1 child
             if(root.left == null){
                 return root.right;
             }
             else if(root.right == null){
                 return root.left;
             }
-
-            // case 3
-            TreeNode IS = inorderSuccess(root.right);
-            root.val = IS.val;
-            root.right = deleteNode(root.right, IS.val);
+            else{
+                int min = min(root.right);
+                root.right = deleteNode(root.right, min);
+                root.val = min;
+            }
         }
         return root;
     }
-    public static TreeNode inorderSuccess(TreeNode root){
-        while(root.left != null){
-            root = root.left;
+    public int min(TreeNode root){
+        if(root == null){
+            return Integer.MAX_VALUE;
         }
-        return root;
+        int left = min(root.left);
+        return Math.min(left, root.val);
     }
 }
