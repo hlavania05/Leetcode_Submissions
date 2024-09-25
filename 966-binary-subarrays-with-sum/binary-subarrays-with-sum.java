@@ -3,9 +3,9 @@ class Solution {
         return func(nums, goal) - func(nums, goal-1);
     }
     public int func(int[] nums, int goal){
+        int sum = 0;
         int l = 0;
         int r = 0;
-        int sum = 0;
         int cnt = 0;
         while(r < nums.length){
             sum += nums[r];
