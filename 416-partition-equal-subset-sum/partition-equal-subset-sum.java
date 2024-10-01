@@ -7,28 +7,30 @@ class Solution {
         return sum;
     }
     public boolean canPartition(int[] nums) {
-        int arrSum = arrSum(nums);
-        if(arrSum % 2 != 0){
+        int N = nums.length;
+        int totalSum = arrSum(nums);
+        if(totalSum % 2 == 1){
             return false;
         }
-        int targetSum = arrSum/2;
-        int n = nums.length;
-        Boolean[][] dp = new Boolean[n+1][targetSum+1];
-        return func(dp, nums, n-1, targetSum);
+        int sum = totalSum/2;
+        Boolean[][] dp = new Boolean[N+1][sum+1];
+        
+        return helper(dp, nums, sum, N-1);
     }
-    public boolean func(Boolean[][] dp, int[] arr, int n, int sum){
+    public boolean helper(Boolean[][] dp, int[] arr, int sum, int n){
         if(n < 0 || sum < 0){
             return false;
         }
         if(sum == 0 || arr[n] == sum){
             return true;
         }
+        
         if(dp[n][sum] != null){
             return dp[n][sum];
         }
-        boolean take = func(dp, arr, n-1, sum - arr[n]);
-        boolean notTake = func(dp, arr, n-1, sum);
-        dp[n][sum] = take || notTake;
+        boolean take = helper(dp, arr, sum - arr[n], n-1);
+        boolean notTake = helper(dp, arr, sum, n-1);
+        dp[n][sum] = notTake || take;
         return dp[n][sum];
     }
 }
