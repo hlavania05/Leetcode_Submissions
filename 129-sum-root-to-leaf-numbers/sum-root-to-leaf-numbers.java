@@ -15,17 +15,17 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        return Number(root, 0);
+        return func(root, 0);
     }
-    public int Number(TreeNode root, int sum){
+    public int func(TreeNode root, int ans){
         if(root == null){
             return 0;
         }
         if(root.left == null && root.right == null){
-            return sum * 10 + root.val;
+            return ans*10 + root.val;
         }
-        int left = Number(root.left, sum * 10 + root.val);
-        int right = Number(root.right, sum * 10 + root.val);
+        int left = func(root.left, ans*10 + root.val);
+        int right = func(root.right, ans*10 + root.val);
         return left + right;
     }
 }
