@@ -5,18 +5,18 @@ class Solution {
         return lst;
     }
     public void generate(int n, List<String> lst, String ans, int open, int close){
-        if(open < close){
-            return;
-        }
-        if(open > n || close > n){
-            return;
-        }
-        if(open == n && close == n){
-            lst.add(ans);
-        }
-        generate(n, lst, ans+"(", open+1, close);
-        generate(n, lst, ans+")", open, close+1);
-
+    if(ans.length() == 2 * n){
+        lst.add(ans);
+        return;
     }
+
+    if(open < n){
+        generate(n, lst, ans + "(", open + 1, close);
+    }
+    if(close < open){
+        generate(n, lst, ans + ")", open, close + 1);
+    }
+}
+
     
 }
