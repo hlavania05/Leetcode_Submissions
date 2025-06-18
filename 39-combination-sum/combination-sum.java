@@ -2,21 +2,22 @@ class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> lst = new ArrayList<>();
         List<Integer> l = new ArrayList<>();
-        func(candidates, target, l, lst, 0);
+        sum(target, candidates, lst, l, 0);
         return lst;
     }
-    public void func(int[] arr, int target, List<Integer> lst, List<List<Integer>> ans, int start){
+    public void sum(int target, int[] candidates, List<List<Integer>> lst, List<Integer> l, int start){
         if(target == 0){
-            ans.add(new ArrayList<>(lst));
+            lst.add(new ArrayList<>(l));
             return;
         }
         if(target < 0){
             return;
         }
-        for(int i=start; i<arr.length; i++){
-            lst.add(arr[i]);
-            func(arr, target - arr[i], lst, ans, i);
-            lst.remove(lst.size()-1);
+        for(int i=start; i<candidates.length; i++){
+            l.add(candidates[i]);
+            sum(target-candidates[i], candidates, lst, l, i);
+            l.remove(l.size()-1);
         }
     }
+    
 }
