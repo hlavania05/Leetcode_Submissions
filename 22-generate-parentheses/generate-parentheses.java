@@ -1,21 +1,22 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> lst = new ArrayList<>();
-        func(n, lst, "", 0, 0);
+        generate(n, lst, "", 0, 0);
         return lst;
     }
-    public void func(int n, List<String> lst, String ans, int close, int open){
-        if(close > n || open > n){
+    public void generate(int n, List<String> lst, String ans, int open, int close){
+        if(open < close){
             return;
         }
-        if(close > open){
+        if(open > n || close > n){
             return;
         }
-        if(close == n && open == n){
+        if(open == n && close == n){
             lst.add(ans);
-            return;
         }
-        func(n, lst, ans + "(", close, open+1);
-        func(n, lst, ans + ")", close+1, open);
+        generate(n, lst, ans+"(", open+1, close);
+        generate(n, lst, ans+")", open, close+1);
+
     }
+    
 }
