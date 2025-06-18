@@ -12,15 +12,16 @@ class Solution {
     }
 
     public long power(long a, long b) {
-        if (b == 0) return 1;
+        long result = 1;
+        a = a % MOD;
 
-        long half = power(a, b / 2);
-        long result = (half * half) % MOD;
-
-        if (b % 2 == 1) {
-            result = (result * a) % MOD;
+        while (b > 0) {
+            if (b % 2 == 1) {
+                result = (result * a) % MOD;
+            }
+            a = (a * a) % MOD;
+            b = b / 2;
         }
-
         return result;
     }
 }
