@@ -1,22 +1,27 @@
 class Solution {
     public List<List<Integer>> combinationSum3(int k, int n) {
-        List<Integer> ans = new ArrayList<>();
         List<List<Integer>> result = new ArrayList<>();
-        comb(k, ans, result, n, 1);
+        List<Integer> lst = new ArrayList<>();
+        if(k > n){
+            return result;
+        }
+        func(k, n, result, lst, 1);
         return result;
     }
-    public void comb(int k, List<Integer> ans, List<List<Integer>> result, int target, int idx){
-        if(target < 0 || ans.size() > k){
+    public void func(int k, int n, List<List<Integer>> result, List<Integer> lst, int start){
+        if(n == 0 && lst.size() == k){
+            result.add(new ArrayList<>(lst));
             return;
         }
-        if(target == 0 && ans.size() == k){
-            result.add(new ArrayList<>(ans));
+        if(n < 0 || lst.size() > k){
             return;
         }
-        for(int i=idx; i<=9; i++){
-            ans.add(i);
-            comb(k, ans, result, target - i, i+1);
-            ans.remove(ans.size()-1);
+        for(int i=start; i<=9; i++){
+            lst.add(i);
+            func(k, n-i, result, lst, i+1);
+            lst.remove(lst.size()-1);
+
         }
+
     }
 }
