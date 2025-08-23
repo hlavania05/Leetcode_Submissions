@@ -1,50 +1,30 @@
-class Pair {
-    int first;
-    int second;
-
-    public Pair(int first, int second) {
-        this.first = first;
-        this.second = second;
-    }
-}
 class Solution {
     public int numIslands(char[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
-        int[][] visited = new int[n][m];
-        int count = 0;
+        int[][] isVisited = new int[n][m];
+
+        int[][] dir = {{1,0}, {0,1}, {-1, 0}, {0, -1}};
+        int cnt = 0;
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
-                if(visited[i][j] == 0 && grid[i][j] == '1'){
-                    count++;
-                    bfs(i, j, grid, visited);
+                if(grid[i][j] == '1' && isVisited[i][j] == 0){
+                    dfs(i, j, isVisited, grid, dir);
+                    cnt++;
                 }
             }
         }
-        return count;
+        return cnt;
     }
-    public void bfs(int row, int col, char[][] arr, int[][] visited){
-        visited[row][col] = 1;
-        Queue<Pair> q = new LinkedList<Pair>();
-        q.add(new Pair(row, col));
+    public void dfs(int i, int j, int[][] isVisited, char[][] grid, int[][] dir){
+        isVisited[i][j] = 1;
 
-        int n = arr.length;
-        int m = arr[0].length;
-
-        while(!q.isEmpty()){
-            Pair current = q.poll();
-            int r = current.first;
-            int c = current.second;
-            
-            int[] dr = {1, -1, 0, 0};
-            int[] dc = {0, 0, 1, -1};
-            for (int i = 0; i < 4; i++) {
-                int newRow = r + dr[i];
-                int newCol = c + dc[i];
-                if (newRow >= 0 && newRow < n && newCol >= 0 && newCol < m && visited[newRow][newCol] == 0 && arr[newRow][newCol] == '1') {
-                    visited[newRow][newCol] = 1;
-                    q.add(new Pair(newRow, newCol));
-                }
+        
+        for(int x=0; x<dir.length; x++){
+            int nr = i + dir[x][0];
+            int nc = j + dir[x][1];
+            if(nr >= 0 && nr < grid.length && nc >=0 && nc < grid[0].length && grid[nr][nc] == '1' && isVisited[nr][nc] == 0){
+                dfs(nr, nc, isVisited, grid, dir);
             }
         }
 
