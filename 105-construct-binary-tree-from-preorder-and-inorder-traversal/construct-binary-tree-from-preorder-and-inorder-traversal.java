@@ -14,22 +14,25 @@
  * }
  */
 class Solution {
+    private int idx = 0;
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for(int i=0; i<inorder.length; i++){
             map.put(inorder[i], i);
         }
-        return construct(preorder, map, 0, 0, inorder.length-1);
+
+        return build(preorder, map, 0, inorder.length-1);
     }
-    public TreeNode construct(int[] preorder, HashMap<Integer, Integer> map, int idx, int left, int right){
-        TreeNode root = new TreeNode(preorder[idx]);
-        int mid = map.get(preorder[idx]);
-        if(left < mid){
-            root.left = construct(preorder, map, idx+1, left, mid-1);
+    public TreeNode build(int[] preorder, HashMap<Integer, Integer> map, int left, int right){
+        if(left > right){
+            return null;
         }
-        if(right > mid){
-            root.right = construct(preorder, map, idx+mid-left+1, mid+1, right);
-        }
+        int item = preorder[idx++];
+        TreeNode root = new TreeNode(item);
+        int inIdx = map.get(item);
+        root.left = build(preorder, map, left, inIdx-1);
+        root.right = build(preorder, map, inIdx+1, right);
         return root;
     }
+    
 }
