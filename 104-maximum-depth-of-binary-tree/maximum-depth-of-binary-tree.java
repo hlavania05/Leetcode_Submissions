@@ -21,10 +21,8 @@ class Solution {
         if(root == null){
             return 0;
         }
-
         int left = func(root.left);
         int right = func(root.right);
-
-        return 1+ Math.max(left, right);
+        return 1 + Math.max(left, right);
     }
 }
