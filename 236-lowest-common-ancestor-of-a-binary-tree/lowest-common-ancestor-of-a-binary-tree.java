@@ -9,18 +9,16 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        return func(root, p, q);
-    }
-    public TreeNode func(TreeNode root, TreeNode p, TreeNode q){
         if(root == null){
             return null;
         }
         if(root == p || root == q){
             return root;
         }
-        TreeNode left = func(root.left, p, q);
-        TreeNode right = func(root.right, p, q);
-        if(left != null && right != null){
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if(left != null & right != null){
             return root;
         }
         if(left == null){
