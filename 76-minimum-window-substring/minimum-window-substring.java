@@ -1,36 +1,45 @@
 class Solution {
     public String minWindow(String s, String t) {
-        if(t.length() > s.length()){
+        if(s.length() == 0 || t.length() == 0 || s.length() < t.length()){
             return "";
         }
-        int[] hash = new int[256];
+        HashMap<Character, Integer> map = new HashMap<>();
         for(char ch : t.toCharArray()){
-            hash[ch]++;
+            map.put(ch, map.getOrDefault(ch, 0)+1);
         }
-        int l = 0;
-        int r = 0;
+
+        int left = 0;
+        int right = 0;
         int minLen = Integer.MAX_VALUE;
-        int cnt = 0;
-        int idx = -1;
+        int start = 0;
+        int count = map.size();
 
-        while(r < s.length()){
-            char ch = s.charAt(r);
-            if(hash[ch] > 0){ cnt++; }
-            hash[ch]--;
-
-            while(cnt == t.length()){
-                if(r-l+1 < minLen){
-                    minLen = r-l+1;
-                    idx = l;
+        while(right < s.length()){
+            char ch = s.charAt(right);
+            if(map.containsKey(ch)){
+                map.put(ch, map.get(ch)-1);
+                if(map.get(ch) == 0){
+                    count--;
                 }
-                hash[s.charAt(l)]++;
-                if(hash[s.charAt(l)] > 0){
-                    cnt--;
-                }
-                l++;
             }
-            r++;
+
+            while(count == 0){
+                if(right-left+1 < minLen){
+                    minLen = right-left+1;
+                    start = left;
+                }
+                char leftChar = s.charAt(left);
+                if(map.containsKey(leftChar)){
+                    map.put(leftChar, map.get(leftChar)+1);
+                    if(map.get(leftChar) > 0){
+                        count++;
+                    }
+                }
+                left++;
+            }
+            right++;
         }
-        return (idx == -1)? "": s.substring(idx, idx + minLen);
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(start, start + minLen);
+
     }
 }
