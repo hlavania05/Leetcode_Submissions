@@ -1,40 +1,37 @@
 class Solution {
     public long maximumSubarraySum(int[] nums, int k) {
-        return maxSum(nums, k);
-    }
-    public static long maxSum(int[] arr, int k){
+        int left = 0, right = 0;
+        long sum = 0, maxSum = 0;
+
         HashMap<Integer, Integer> map = new HashMap<>();
-        int l = 0;
-        int r = 0;
-        long maxSum = 0;
-        long sum = 0;
-        while(r < k){
-            int item = arr[r];
-            sum += item;
-            map.put(item, map.getOrDefault(item, 0)+1);
-            r++;
+        while(right < k){
+            sum += nums[right];
+            map.put(nums[right], map.getOrDefault(nums[right], 0)+1);
+            right++;
         }
         if(map.size() == k){
-            maxSum = Math.max(maxSum, sum);
+            maxSum = Math.max(sum, maxSum);
         }
-        while(r < arr.length){
-            int left = arr[l];
-            map.put(left, map.getOrDefault(left, 0)-1);
-            if(map.get(left) == 0){
-                map.remove(left);
+
+        while(right < nums.length){
+            int leftItem = nums[left];
+            sum = sum - leftItem;
+            map.put(leftItem, map.get(leftItem)-1);
+            if(map.get(leftItem) == 0){
+                map.remove(leftItem);
             }
-            sum = sum - left;
-            l++;
-            int right = arr[r];
-            map.put(right, map.getOrDefault(right, 0)+1);
-            sum = sum + right;
-            r++;
+            left++;
+
+            int rightItem = nums[right];
+            sum = sum + rightItem;
+            map.put(rightItem, map.getOrDefault(rightItem, 0)+1);
+            right++;
 
             if(map.size() == k){
                 maxSum = Math.max(maxSum, sum);
             }
-
         }
         return maxSum;
+
     }
 }
