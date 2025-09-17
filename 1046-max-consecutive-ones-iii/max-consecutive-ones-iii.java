@@ -1,21 +1,23 @@
 class Solution {
+    // max subarray length with at most k 0's
     public int longestOnes(int[] nums, int k) {
-        int l = 0;
-        int r = 0;
-        int maxLen = 0;
-        int zeroes = 0;
-        while(r < nums.length){
-            if(nums[r] == 0){
-                zeroes++;
-            }
-            while(zeroes > k){
-                if(nums[l]==0){
-                    zeroes--;
+        int left = 0;
+        int right = 0;
+        int maxLen  = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        while(right < nums.length){
+            int item = nums[right];
+            map.put(item, map.getOrDefault(item, 0)+1);
+            if(map.containsKey(0)){
+                while(map.get(0) > k){
+                    int leftItem = nums[left];
+                    map.put(leftItem, map.get(leftItem)-1);
+                    left++;
                 }
-                l++;
             }
-            maxLen = Math.max(maxLen, r-l+1);
-            r++;
+            maxLen = Math.max(maxLen, right-left+1);
+            right++;
         }
         return maxLen;
     }
