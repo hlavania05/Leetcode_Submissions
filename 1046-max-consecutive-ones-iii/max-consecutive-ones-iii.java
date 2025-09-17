@@ -4,17 +4,18 @@ class Solution {
         int left = 0;
         int right = 0;
         int maxLen  = 0;
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int zeroes = 0;
 
         while(right < nums.length){
             int item = nums[right];
-            map.put(item, map.getOrDefault(item, 0)+1);
-            if(map.containsKey(0)){
-                while(map.get(0) > k){
-                    int leftItem = nums[left];
-                    map.put(leftItem, map.get(leftItem)-1);
-                    left++;
+            if(item == 0){
+                zeroes++;
+            }
+            while(zeroes > k){
+                if(nums[left]==0){
+                    zeroes--;
                 }
+                left++;
             }
             maxLen = Math.max(maxLen, right-left+1);
             right++;
