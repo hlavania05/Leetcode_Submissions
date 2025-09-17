@@ -1,16 +1,18 @@
 class Solution {
     public int climbStairs(int n) {
-        if(n <= 3){
-            return n;
+        int[] dp = new int[n+1];
+        return func(n, dp);
+    }
+    public int func(int n, int[] dp){
+        if(n == 0){
+            return 1;
         }
-        int prev = 2;
-        int prev2 = 1;
-        int curr;
-        for(int i=3; i<=n; i++){
-            curr = prev + prev2;
-            prev2 = prev;
-            prev = curr;
+        if(n < 0){
+            return 0;
         }
-        return prev;
+        if(dp[n] != 0){
+            return dp[n];
+        }
+        return dp[n] = func(n-1, dp) + func(n-2, dp);
     }
 }
