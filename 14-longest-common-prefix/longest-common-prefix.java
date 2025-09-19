@@ -1,17 +1,12 @@
 class Solution {
     public String longestCommonPrefix(String[] strs) {
-        return func(strs);
-    }
-    public String func(String[] arr) {
-        if(arr == null || arr.length == 0){ return ""; }
-        for(int i=0; i<arr[0].length(); i++){
-            char c = arr[0].charAt(i);
-            for(int j=1; j<arr.length; j++){
-                if(i >= arr[j].length() || arr[j].charAt(i) != c){
-                    return arr[0].substring(0, i); 
-                }
-            }
+        Arrays.sort(strs);
+        int i = 0;
+        String first = strs[0];
+        String last = strs[strs.length-1];
+        while(i < first.length() && i < last.length() && first.charAt(i) == last.charAt(i)){
+            i++;
         }
-        return arr[0];
-    }  
+        return first.substring(0, i);
+    }
 }
