@@ -1,23 +1,25 @@
 class Solution {
     public int minPathSum(int[][] grid) {
-        int[][] dp = new int[grid.length][grid[0].length];
-        for(int[] a : dp){
-            Arrays.fill(a, -1);
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+        for(int[] row : dp){
+            Arrays.fill(row, -1);
         }
-        return func(grid, 0, 0, dp);
+        return helper(grid, 0, 0, m, n, dp);
     }
-    public int func(int[][] grid, int i, int j, int[][] dp){
-        if(i == grid.length-1 && j == grid[0].length-1){
-            return grid[i][j];
-        }
-        if(i >= grid.length || j >= grid[0].length){
+    public int helper(int[][] grid, int i, int j, int m, int n, int[][]dp){
+        if(i >= m || j >= n){
             return Integer.MAX_VALUE;
+        }
+        if(i == m-1 && j == n-1){
+            return grid[i][j];
         }
         if(dp[i][j] != -1){
             return dp[i][j];
         }
-        int right = func(grid, i, j+1, dp);
-        int down = func(grid, i+1, j, dp);
-        return dp[i][j] = grid[i][j] + Math.min(right, down);
+        int r = helper(grid, i, j+1, m, n, dp);
+        int d = helper(grid, i+1, j, m, n, dp);
+        return dp[i][j] = grid[i][j] + Math.min(r, d);
     }
 }
