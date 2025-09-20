@@ -1,35 +1,34 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        return min_int_k(piles, h);
-    }
-    public static int min_int_k(int[] arr, int h){
-        int start = 1;
-        int end = max(arr);
-        while(start <= end){
-            int mid = start + (end - start)/2;
-            if(ispossible(arr, mid) <= h){
-                end = mid-1;
+        int low = 1;
+        int high = max(piles);
+        int ans = 0;
+        while(low <= high){
+            int mid = low + (high-low)/2;
+            if(ispossible(piles, mid, h)){
+                ans = mid;
+                high = mid - 1;
             }
             else{
-                start = mid + 1; 
+                low = mid + 1;
             }
         }
-        return start;
+        return ans;
+
     }
-    public static int ispossible(int[] arr, int mid){
-        int total_h = 0;
-        for(int i=0; i<arr.length; i++){
-            total_h += Math.ceil((double)arr[i]/(double)mid);
+    public boolean ispossible(int[] arr, int k, int hr){
+        int total_hr = 0;
+        for(int item : arr){
+            total_hr += Math.ceil((double)item/(double)k);
         }
-        return total_h;
+        return total_hr <= hr;
     }
-    public static int max(int[] arr){
+    public int max(int[] arr){
         int max = Integer.MIN_VALUE;
-        for(int i=0; i<arr.length; i++){
-            if(arr[i] > max){
-                max = arr[i];
-            }
+        for(int item : arr){
+            max = Math.max(max, item);
         }
         return max;
     }
+
 }
