@@ -19,7 +19,7 @@ class Solution {
     }
     public int func(TreeNode root, int ans){
         if(root == null){
-            return 0;
+            return  0;
         }
         if(root.left == null && root.right == null){
             return ans*10 + root.val;
