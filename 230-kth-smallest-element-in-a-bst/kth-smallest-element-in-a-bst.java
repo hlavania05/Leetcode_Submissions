@@ -14,23 +14,24 @@
  * }
  */
 class Solution {
-    private int result = 0;
-    private int cnt = 0;
-
+    int ans = 0;
+    int count = 0;
     public int kthSmallest(TreeNode root, int k) {
-        func(root, k);
-        return result;
+        // ans = 0;
+        helper(root, k);
+        return ans;
     }
-    public void func(TreeNode root, int k){
+    public void helper(TreeNode root, int k){
         if(root == null){
             return;
         }
-        func(root.left, k);
-        cnt++;
-        if(cnt == k){
-            result = root.val;
+        
+        helper(root.left, k);
+        count++;
+        if(k == count){
+            ans = root.val;
             return;
         }
-        func(root.right, k);
+        helper(root.right, k);
     }
 }
