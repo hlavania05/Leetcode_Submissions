@@ -25,7 +25,6 @@ class Solution {
             root.right = deleteNode(root.right, key);
         }
         else{
-            // Case 1 - 0 chile or 1 child
             if(root.left == null){
                 return root.right;
             }
