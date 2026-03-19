@@ -1,32 +1,30 @@
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode() {}
- * TreeNode(int val) { this.val = val; }
- * TreeNode(int val, TreeNode left, TreeNode right) {
- * this.val = val;
- * this.left = left;
- * this.right = right;
- * }
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
  * }
  */
 class Solution {
+    int i = 0;
     public TreeNode bstFromPreorder(int[] preorder) {
-        return func(preorder, Integer.MAX_VALUE, new int[]{0}, preorder.length);
+        return helper(preorder, preorder.length, Integer.MAX_VALUE);
     }
-    public TreeNode func(int[] preorder, int upperBound, int[] i, int n){
-        if(i[0] >= n || preorder[i[0]] > upperBound){
+    public TreeNode helper(int[] preorder, int n, int upperBound){
+        if(i >= n || preorder[i] > upperBound){
             return null;
         }
-        TreeNode root = new TreeNode(preorder[i[0]++]);
-
-        root.left = func(preorder, root.val, i, n);
-        root.right = func(preorder, upperBound, i, n);
+        TreeNode root = new TreeNode(preorder[i++]);
+        root.left = helper(preorder, n, root.val);
+        root.right = helper(preorder, n, upperBound);
         return root;
     }
-
-    
 }
