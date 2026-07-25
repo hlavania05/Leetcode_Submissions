@@ -1,17 +1,16 @@
 class Solution {
+    // brute force
     public boolean isPalindrome(String s) {
-        s = s.toLowerCase();
-        StringBuilder newStr = new StringBuilder();
+        String str = "";
         for(char ch : s.toCharArray()){
             if(Character.isLetterOrDigit(ch)){
-                newStr.append(ch);
+                str += Character.toLowerCase(ch);
             }
-        } 
-        System.out.println(newStr.toString());
-        return(func(newStr.toString()));
+        }
+        return checkPalindrome(str);
     }
-    public boolean func(String s){
-        int i =0;
+    public boolean checkPalindrome(String s){
+        int i = 0;
         int j = s.length()-1;
         while(i < j){
             if(s.charAt(i) != s.charAt(j)){
@@ -21,5 +20,11 @@ class Solution {
             j--;
         }
         return true;
+
     }
+
+    // optimized - two pointers
+    // public boolean isPalindrome(String s) {
+        
+    // }
 }
