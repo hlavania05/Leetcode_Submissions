@@ -1,24 +1,19 @@
 class Solution {
-    // max subarray length with at most k 0's
     public int longestOnes(int[] nums, int k) {
-        int left = 0;
-        int right = 0;
-        int maxLen  = 0;
+        int i = 0;
+        int j = 0;
+        int maxLen = 0;
         int zeroes = 0;
-
-        while(right < nums.length){
-            int item = nums[right];
-            if(item == 0){
-                zeroes++;
-            }
+        while(j < nums.length){
+            int right = nums[j];
+            zeroes = right == 0 ? zeroes + 1 : zeroes + 0;
             while(zeroes > k){
-                if(nums[left]==0){
-                    zeroes--;
-                }
-                left++;
+                int left = nums[i];
+                zeroes = left == 0 ? zeroes - 1 : zeroes - 0;
+                i++;
             }
-            maxLen = Math.max(maxLen, right-left+1);
-            right++;
+            maxLen = Math.max(maxLen, j-i+1);
+            j++;
         }
         return maxLen;
     }
