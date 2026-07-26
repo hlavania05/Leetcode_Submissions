@@ -1,49 +1,45 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        List<Integer> ans = new ArrayList<>();
-        if(s.length() < p.length()){
-            return ans;
-        }
-
-        // mapping the frequency of character in p string
         HashMap<Character, Integer> map1 = new HashMap<>();
         for(char ch : p.toCharArray()){
             map1.put(ch, map1.getOrDefault(ch, 0)+1);
+        } 
+        int n1 = s.length();
+        int n2 = p.length();
+        List<Integer> ans = new ArrayList<>();
+        if(n1 < n2){
+            return ans;
         }
 
-        // hashmap that will store the current substring character's frequency
         HashMap<Character, Integer> map2 = new HashMap<>();
-        int l = 0;
-        int r = 0;
-
-        // Initialize first window
-        while(r< p.length()){
-            char ch = s.charAt(r);
+        int i = 0;
+        int j = 0; 
+        while(j < n2){
+            char ch = s.charAt(j);
             map2.put(ch, map2.getOrDefault(ch, 0)+1);
-            r++;
+            j++;
         }
-        
-        while(r < s.length()){
-            if(map1.equals(map2)){
-                ans.add(l);
-            }
-            // Remove the leftmost character of the current window
-            char leftChar = s.charAt(l);
-            map2.put(leftChar, map2.get(leftChar) - 1);
-            if(map2.get(leftChar) == 0){
-                map2.remove(leftChar);
-            }
-            l++;
+        if(map1.equals(map2)){
+            ans.add(i);
+        }
 
-            // Add the next character to the window
-            char rightChar = s.charAt(r);
-            map2.put(rightChar, map2.getOrDefault(rightChar, 0) + 1);
-            r++;
-        }  
-        // Check the last window
-        if (map1.equals(map2)) {
-            ans.add(l);
+        while(j < n1){
+            char left = s.charAt(i);
+            map2.put(left, map2.get(left)-1);
+            if(map2.get(left) == 0){
+                map2.remove(left);
+            }
+            i++;
+            
+            char right = s.charAt(j);
+            map2.put(right, map2.getOrDefault(right, 0)+1);
+            j++;
+
+            if(map1.equals(map2)){
+                ans.add(i);
+            }
         }
-        return ans;  
+        return ans;
+
     }
 }
