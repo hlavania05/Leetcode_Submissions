@@ -1,39 +1,37 @@
 class Solution {
     public String longestPalindrome(String s) {
-        if(s.length() <= 1){
+        int n = s.length();
+        if(n <= 1){
             return s;
         }
         String ans = "";
-        for(int i=1; i<s.length(); i++){
-            // odd palindromic substring
-            int low = i;
-            int high = i;
-            while(s.charAt(low) == s.charAt(high)){
-                low--;
-                high++;
-                if(low < 0 || high >= s.length()){
-                    break;
-                }
+        for(int i=1; i<n; i++){
+            //checking odd palindromic substring 
+            int left = i;
+            int right = i;
+            while(left >= 0 && right < n && s.charAt(left) == s.charAt(right)){
+                left--;
+                right++;
             }
-            String palindrom1 = s.substring(low+1, high);
-            if(ans.length() < palindrom1.length()){
-                ans = palindrom1;
+            String palindrome1 = s.substring(left+1, right);
+
+            if(ans.length() < palindrome1.length()){
+                ans = palindrome1;
             }
 
-            // even palindromic substring 
-            low = i-1;
-            high = i;
-            while(s.charAt(low) == s.charAt(high)){
+            //checking even palindromic substring
+            int low = i-1;
+            int high = i;
+            while(low >= 0 && high < n && s.charAt(low) == s.charAt(high)){
                 low--;
                 high++;
-                if(low < 0 || high >= s.length()){
-                    break;
-                }
             }
-            String palindrom2 = s.substring(low+1, high);
-            if(ans.length() < palindrom2.length()){
-                ans = palindrom2;
+            String palindrome2 = s.substring(low+1, high);
+
+            if(ans.length() < palindrome2.length()){
+                ans = palindrome2;
             }
+
         }
         return ans;
     }
